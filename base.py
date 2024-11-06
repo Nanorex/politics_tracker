@@ -13,3 +13,7 @@ for index in range(10):
 #get a data frame with selected columns
 #FORMAT = ['Col_1', 'Col_2', 'Col_3']
 #df_selected = df[FORMAT]
+
+selected_party = "AfD"
+#print(get_party_voring_tournout(selected_party, collected_data))
+
