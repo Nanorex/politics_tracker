@@ -7,11 +7,13 @@ import pandas
 import numpy as np
 
 import single_ballot_operations
+import output_writer
 
 
 def add_output_faction(dict, faction_name):
     dict[faction_name] = {
         "ballot_count": 0,
+        "seats": 0,
         "overall_turnout": 0,
         "overall_invalid_votes": 0,
         "turnout_list": np.asarray([]),
@@ -35,6 +37,7 @@ def collect_turnout_statistics(datapath):
                                                           ballot_turnout[faction]["turnout"])
             out_data[faction]["invalid_votes_list"] = np.append(out_data[faction]["invalid_votes_list"],
                                                                 ballot_turnout[faction]["invalid_votes"])
+            out_data[faction]["seats"] = ballot_turnout[faction]["membercount"]
     for faction in out_data.keys():
         out_data[faction]["overall_turnout"] = np.sum(out_data[faction]["turnout_list"]) / out_data[faction][
             "ballot_count"]
@@ -45,7 +48,10 @@ def collect_turnout_statistics(datapath):
 
 if __name__ == "__main__":
     input_path = r"D:\Projecte\Abstimmungsseite\Daten\Bundestag\Namentliche_Abstimmungen"
+    output_path = r"D:\Projecte\Python Sachen\Websites\politische_tatensammlung\Data"
     output = collect_turnout_statistics(input_path)
     for faction in output:
         print(faction)
         print(f"Overall turnout: {output[faction]['overall_turnout']}")
+    output_writer.write_active_party_data(output, output_path)
+    output_writer.write_turnout_statistics(output, output_path)
