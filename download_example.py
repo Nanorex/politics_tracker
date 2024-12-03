@@ -66,6 +66,7 @@ for row in rows:
 
     #pdf_name = pdf_link.split("/")[-1]
     #xlsx_name = xlsx_link.split("/")[-1]
+    document_tite = document_tite.replace("/", "--")
     pdf_name = f"{document_tite}.pdf"
     xlsx_name = f"{document_tite}.xlsx"
 
