@@ -31,6 +31,7 @@ import os
 import urllib.request as urlrequest
 
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -44,8 +45,19 @@ driver = webdriver.Firefox()
 driver.get("https://www.bundestag.de/parlament/plenum/abstimmung/liste")
 # Wait for the website to fully load everything
 WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//table[@class='table bt-table-data']")))
+
+# move to the next page
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight / 2)")
+WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//button[@class='slick-next slick-arrow']")))
+previous_page_button = driver.find_element(By.XPATH, "//button[@class='slick-next slick-arrow']")
+ActionChains(driver) \
+        .click(previous_page_button) \
+        .perform()
+WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//table[@class='table bt-table-data']")))
+
 # Select the tale of interest
 download_table = driver.find_element(By.XPATH, "//table[@class='table bt-table-data']")
+
 rows = download_table.find_elements(By.TAG_NAME, "tr")
 
 index = -1
