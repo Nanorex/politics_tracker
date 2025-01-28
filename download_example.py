@@ -45,14 +45,17 @@ driver = webdriver.Firefox()
 driver.get("https://www.bundestag.de/parlament/plenum/abstimmung/liste")
 # Wait for the website to fully load everything
 WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//table[@class='table bt-table-data']")))
-
 # move to the next page
-driver.execute_script("window.scrollTo(0, document.body.scrollHeight / 2)")
-WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//button[@class='slick-next slick-arrow']")))
-previous_page_button = driver.find_element(By.XPATH, "//button[@class='slick-next slick-arrow']")
-ActionChains(driver) \
-        .click(previous_page_button) \
-        .perform()
+
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight / 2 -300)")
+actions = ActionChains(driver)
+
+for i in range(4):
+    time.sleep(2)
+    previous_page_button = driver.find_element(By.XPATH, "//button[@class='slick-next slick-arrow']")
+    actions.move_to_element(previous_page_button)
+    actions.click(previous_page_button)
+    actions.perform()
 WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//table[@class='table bt-table-data']")))
 
 # Select the tale of interest
@@ -84,5 +87,8 @@ for row in rows:
 
     _, _ = urlrequest.urlretrieve(f"{web_root}{pdf_link}", os.path.join(file_save_path, pdf_name))
     _, _ = urlrequest.urlretrieve(f"{web_root}{xlsx_link}", os.path.join(file_save_path, xlsx_name))
+
+
+
 
 driver.close()
