@@ -26,6 +26,10 @@ def collect_turnout_statistics(datapath):
     out_data = {}
     files = os.listdir(datapath)
     for file in files:
+        sharrds = file.split(".")
+        if len(sharrds) != 2 or sharrds[1] != "xlsx":
+            continue
+        print(file)
         current_path = os.path.join(datapath, file)
         current_data = pandas.read_excel(current_path)
         ballot_turnout = single_ballot_operations.get_full_ballot_turnout(current_data)
@@ -47,7 +51,7 @@ def collect_turnout_statistics(datapath):
     return out_data
 
 if __name__ == "__main__":
-    input_path = r"D:\Projecte\Abstimmungsseite\Daten\Bundestag\Namentliche_Abstimmungen"
+    input_path = r"D:\Projecte\Abstimmungsseite\Daten\Debug"
     output_path = r"D:\Projecte\Python Sachen\Websites\politische_tatensammlung\Data"
     output = collect_turnout_statistics(input_path)
     for faction in output:
