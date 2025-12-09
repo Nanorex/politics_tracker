@@ -14,11 +14,13 @@ def extract_information(pdf_path):
         "Nicht abgegebene",
         "Endgültiges Ergebnis",
         "Deutscher Bundestag",
+        "Ausschuss",
         "Seite:",
         "Ende:",
         "zu dem Antrag",
         "Fraktion",
         "Drucksachen",
+        "Drucksache",
         "Drsn"
         "Montag",
         "Dienstag",
@@ -56,7 +58,7 @@ def extract_information(pdf_path):
     return 0
 
 if __name__ == '__main__':
-    path = r'D:\Projecte\Abstimmungsseite\Daten\Debug'
+    path = r'D:\Projecte\Abstimmungsseite\Daten\Debug_2\Scraped'
     #path = r'D:\Projecte\Abstimmungsseite\Daten\Bundestag\Abstimmungen_pdf\20240118_2.pdf'
 
     for file in os.listdir(path):

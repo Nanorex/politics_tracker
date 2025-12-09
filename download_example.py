@@ -62,7 +62,7 @@ def download_content(active_driver, output_path):
 if __name__ == "__main__":
 
     web_root = "https://www.bundestag.de"
-    file_save_path = r"D:\Projecte\Abstimmungsseite\Daten\Debug"
+    file_save_path = r"D:\Projecte\Abstimmungsseite\Daten\Debug_2\Scraped"
 
     driver = webdriver.Firefox()
     driver.get("https://www.bundestag.de/parlament/plenum/abstimmung/liste")
