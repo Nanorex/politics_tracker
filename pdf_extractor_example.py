@@ -2,7 +2,8 @@
 
 import os
 
-from PyPDF2 import PdfReader
+#from PyPDF2 import PdfReader
+from pypdf import PdfReader
 
 def extract_information(pdf_path):
     lines_to_ignore = [
@@ -37,6 +38,8 @@ def extract_information(pdf_path):
         "Freitag,",
         "Drsn."
     ]
+
+    out_string = ""
     with open(pdf_path, 'rb') as f:
         pdf = PdfReader(f)
         page = pdf.pages[0]
@@ -46,7 +49,9 @@ def extract_information(pdf_path):
     for line in shards:
         if any(element in line for element in lines_to_ignore):
             continue
-        print(line)
+        #print(line)
+        out_string += line
+        out_string += " DEMOS"
 
     #print("\n")
     second_half = text.split("zu")[1]
@@ -55,7 +60,7 @@ def extract_information(pdf_path):
     second_half = "".join(second_half)
     #print(second_half)
 
-    return 0
+    return out_string
 
 if __name__ == '__main__':
     path = r'D:\Projecte\Abstimmungsseite\Daten\Debug_2\Scraped'
